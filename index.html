@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Document</title>
+    <style>
+       
+        input[type="text"], input[type="email"] {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            margin-bottom: 10px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+        }
+        .carac label, .radio input[type="radio"], .radio label {
+            display: inline-block;
+            vertical-align: middle;
+        }
+        .carac label {
+            margin-right: 10px;
+        }
+        .corps, .gera, .stage {
+            margin-bottom: 20px;
+        }
+        .radio input[type="radio"] {
+            margin-right: 5px;
+        }
+        @media (min-width: 768px) {
+            .container {
+                width: 60%;
+            }
+
+            .image-container {
+                display: flex;
+                justify-content: center; /* This will center the images horizontally */}
+
+            img {
+                display: flex;
+                margin: 0 auto;
+                max-width: 5%;
+                height: auto;
+                width: 5%; /* Adjust this to make the images smaller or larger */
+                float: center; 
+            }
+            button {
+                background-color: blue;
+                color: white;
+                padding: 10px 20px;
+                border: none;
+                border-radius: 4px;
+            }
+
+            .head h1 {
+                text-align: center; /* This will center the text */
+            }
+        }
+        
+    </style>
+</head>
+<body>
+   <div class="image-container">
+    <img src="./I1.png" alt="Brainstorming picture">
+    <img src="./I2.png" alt="Brainstorming picture">
+    <img src="./I3.png" alt="Brainstorming picture">
+   </div>
+   <br>
+   <div class="container">
+     <div class="head">
+      <h1>FORMULAIRE DE SUGGESTIONS DE LIVRE</h1>
+     </div>
+   </div>
+   <br>
+   <div class="container corps">
+     <form method="POST" class="contact-form">
+        <div class="entreprise"> 
+            <label for="entreprise">Nom du demandeur</label>
+            <input type="text" id="entreprise"  class="ent">
+            <label for="secteur">Prénoms du demandeur</label>
+            <input type="text" id="secteur" class="sect">
+        </div>
+        <label for="localisation">Matière Enseigné</label>
+        <input type="text" id="localisation" class="loc"> <br><br>
+        <div class="gera">
+            <label for="gerant">Libellé du livre</label>
+            <input type="text" id="gerant" class="ger">
+        </div>
+        <div class="stage">
+            <label for="stagiaire">Email</label>
+            <input type="email" id="stagiaire" class="sta">
+            <label for="telephone-stagiaire">Contact Telephone</label>
+            <input type="text" id="telephone-stagiaire" class="tel-sta">
+        </div>
+        <label for="email"> Motivations de Suggestions</label>
+        <input type="text" class="ema"><br><br>
+        <button class="blue-button"  type="submit">Envoyé</button>
+     </form>
+    </div>
+</body>
+
+
+<script src=
+"https://smtpjs.com/v3/smtp.js">
+</script>
+
+<script>
+const form = document.querySelector(".contact-form");
+form.addEventListener("submit", e => {
+e.preventDefault();
+let entreprise = document.querySelector(".entreprise .ent").value;
+let secteur = document.querySelector(" .entreprise .sect").value;
+let localisation = document.querySelector(".loc").value;
+let gerant= document.querySelector(".gera .ger").value;
+let stagiaire = document.querySelector(".stage .sta").value;
+let telStagiaire = document.querySelector(".stage .tel-sta").value;
+let email = document.querySelector(".ema").value;
+
+
+
+
+
+
+
+document.querySelector(".contact-form").reset();
+
+sendEmail(entreprise, secteur, localisation, gerant, stagiaire, telStagiaire, email);
+})
+function sendEmail(entreprise, secteur, localisation, gerant, stagiaire, telStagiaire, email){
+Email.send({
+    
+  Host: "smtp.elasticemail.com", 
+  Username: "levingbesso1@gmail.com",
+  Password: "47B39981A689182EA8314B4434B519CCFF38",
+  To: "levingbesso2@gmail.com",
+  From: "levingbesso1@gmail.com",
+  Subject: `Vous avez recu une nouvelle suggestion de Livre`,
+  Body: `Nom: ${entreprise} <br> Prénoms: ${secteur} <br> Matiere Enseigné: ${localisation} <br><br> Libelle du Livre: ${gerant}<br><br> Email: ${stagiaire} <br> Contact Telephone: ${telStagiaire} <br> <br> Motivations de Suggestions: ${email} `,
+
+}).then((success) => {
+ 
+  alert("message sent successfully. Please check the spam folder in your mail.");
+}).catch((error) => {
+    
+  alert("error sending message");
+})
+}
+</script>
+
+
